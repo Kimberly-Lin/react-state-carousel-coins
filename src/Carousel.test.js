@@ -2,6 +2,23 @@ import { render, fireEvent } from "@testing-library/react";
 import Carousel from "./Carousel";
 import TEST_IMAGES from "./_testCommon.js";
 
+it("renders without crashing", function () {
+  // this is a low-value test, but better than nothing
+  render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing" />);
+});
+
+it("matches snapshot", function () {
+  const { container, debug } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing" />);
+  debug();
+  expect(container).toMatchSnapshot();
+});
+
 it("works when you click on both arrows", function () {
   const { container } = render(
     <Carousel
@@ -29,8 +46,11 @@ it("works when you click on both arrows", function () {
     container.querySelector('img[alt="testing image 2"]')
   ).toBeInTheDocument();
 
+  // move backwards in the carousel
   const leftArrow = container.querySelector(".fa-chevron-circle-left");
   fireEvent.click(leftArrow);
+
+  // expect the first image to show, but not the second
   expect(
     container.querySelector('img[alt="testing image 1"]')
   ).toBeInTheDocument();
@@ -83,19 +103,3 @@ it("does not show right arrow when at last image", function () {
   ).toBeInTheDocument();
 });
 
-it("renders without crashing", function () {
-  // this is a low-value test, but better than nothing
-  render(
-    <Carousel
-      photos={TEST_IMAGES}
-      title="images for testing" />);
-});
-
-it("matches snapshot", function () {
-  const { container,debug } = render(
-    <Carousel
-      photos={TEST_IMAGES}
-      title="images for testing" />);
-  debug();
-  expect(container).toMatchSnapshot();
-});

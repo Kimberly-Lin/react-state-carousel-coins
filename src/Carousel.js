@@ -24,6 +24,7 @@ function Carousel({ photos, title }) {
   function goForward() {
     setCurrCardIdx(currCardIdx + 1);
   }
+  //Decrements currCardIdx state by 1
   function goBackward() {
     setCurrCardIdx(currCardIdx - 1);
   }
@@ -34,21 +35,21 @@ function Carousel({ photos, title }) {
       <div className="Carousel-main">
         {currCardIdx !== 0 &&
           <i
-          className="fas fa-chevron-circle-left fa-2x"
-          onClick={goBackward}
-        />}
-        
+            className="fas fa-chevron-circle-left fa-2x"
+            onClick={goBackward}
+          />}
+
         <Card
           caption={currCard.caption}
           src={currCard.src}
           currNum={currCardIdx + 1}
           totalNum={total}
         />
-        {currCardIdx !== total-1 &&
-        <i
-          className="fas fa-chevron-circle-right fa-2x"
-          onClick={goForward}
-        />
+        {currCardIdx !== total - 1 &&
+          <i
+            className="fas fa-chevron-circle-right fa-2x"
+            onClick={goForward}
+          />
         }
       </div>
     </div>
